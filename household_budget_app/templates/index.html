@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シンプル家計簿</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1><i class="fas fa-wallet"></i> シンプル家計簿</h1>
+            <div class="month-selector">
+                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                <span id="current-month"></span>
+                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <section class="summary-section">
+                <div class="summary-cards">
+                    <div class="card income">
+                        <h3>収入</h3>
+                        <p id="total-income">¥0</p>
+                    </div>
+                    <div class="card expense">
+                        <h3>支出</h3>
+                        <p id="total-expense">¥0</p>
+                    </div>
+                    <div class="card balance">
+                        <h3>残高</h3>
+                        <p id="total-balance">¥0</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="expense-chart"></canvas>
+                </div>
+            </section>
+
+            <section class="transaction-section">
+                <div class="section-header">
+                    <h2>取引履歴</h2>
+                    <button id="add-transaction" class="btn primary"><i class="fas fa-plus"></i> 新規登録</button>
+                </div>
+                <div class="transaction-list" id="transaction-list">
+                    <!-- Transactions will be loaded here -->
+                    <div class="empty-state">
+                        <i class="far fa-file-alt"></i>
+                        <p>まだ取引データがありません</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Add Transaction Modal -->
+        <div class="modal" id="transaction-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>取引を登録</h3>
+                    <button class="close-modal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="transaction-form">
+                        <div class="form-group">
+                            <label for="transaction-date">日付</label>
+                            <input type="date" id="transaction-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-type">種類</label>
+                            <div class="toggle-buttons">
+                                <button type="button" class="toggle-btn active" data-value="expense">支出</button>
+                                <button type="button" class="toggle-btn" data-value="income">収入</button>
+                            </div>
+                            <input type="hidden" id="transaction-type" value="expense">
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-category">カテゴリ</label>
+                            <select id="transaction-category" required>
+                                <!-- Categories will be loaded here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-amount">金額</label>
+                            <input type="number" id="transaction-amount" placeholder="0" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaction-memo">メモ</label>
+                            <textarea id="transaction-memo" rows="2" placeholder="オプション"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn secondary close-modal">キャンセル</button>
+                            <button type="submit" class="btn primary">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-overlay"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
