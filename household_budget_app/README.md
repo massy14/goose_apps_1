@@ -1,72 +1,31 @@
-# Household Budget App
+# 家計簿アプリ
 
-A simple household budget tracking application for Goose MCP.
+このリポジトリには家計簿アプリの2つのバージョンが含まれています：
 
-## Features
+1. Python/Flask版 - メインディレクトリに配置されたPythonアプリケーション
+2. JavaScript版 - `js_version` ディレクトリに配置されたブラウザのみで動作するアプリケーション
 
-- Track expenses and income
-- Categorize transactions
-- View balance and reports
-- Custom expense categories
+## Python/Flask版
 
-## Usage
+SQLiteデータベースを使用したサーバーサイドアプリケーションです。
 
-### Adding an expense
-
-```javascript
-// Example: Add an expense
-const result = await goose.invoke("household_budget_app", "addExpense", {
-  amount: 1500,
-  category: "Food",
-  description: "Grocery shopping",
-  date: "2025-09-28"
-});
+### 実行方法
+```
+python app.py
 ```
 
-### Adding income
+## JavaScript版
 
-```javascript
-// Example: Add income
-const result = await goose.invoke("household_budget_app", "addIncome", {
-  amount: 5000,
-  source: "Salary",
-  description: "Monthly salary",
-  date: "2025-09-28"
-});
-```
+ブラウザのローカルストレージを使用したクライアントサイドのみのアプリケーションです。
 
-### Checking balance
+### 使用方法
+`js_version/index.html` をブラウザで開くだけで使用できます。
 
-```javascript
-// Example: Get current balance
-const balance = await goose.invoke("household_budget_app", "getBalance");
-console.log(`Current balance: ${balance.balance} ${balance.currency}`);
-```
+## 機能
 
-### Getting expense reports
+両バージョンとも以下の機能を提供します：
 
-```javascript
-// Example: Get expenses for a specific category and date range
-const expenses = await goose.invoke("household_budget_app", "getExpenses", {
-  startDate: "2025-09-01",
-  endDate: "2025-09-30",
-  category: "Food"
-});
-```
-
-### Adding a custom category
-
-```javascript
-// Example: Add a new expense category
-const result = await goose.invoke("household_budget_app", "addCategory", {
-  name: "Education"
-});
-```
-
-## Data Structure
-
-All data is stored locally and includes:
-- Expenses with amount, category, description, and date
-- Income entries with amount, source, description, and date
-- Custom categories
-- Application settings (currency)
+- 収入・支出の登録と管理
+- カテゴリ別の支出管理
+- 月ごとの収支サマリー表示
+- 取引履歴の表示・削除
